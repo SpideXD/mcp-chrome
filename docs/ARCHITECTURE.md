@@ -32,10 +32,10 @@ This specific fork of the Chrome MCP Server introduces a **Multi-Tenant Tab Mult
 
 ```mermaid
 graph TB
-    subgraph "AI Assistant Layer"
-        A[Claude Desktop]
-        B[Custom MCP Client]
-        C[Other AI Tools]
+    subgraph "AI Assistant Layer (Multi-Tenant)"
+        A[Agent 1 (Tab A)]
+        B[Agent 2 (Tab B)]
+        C[Agent N (Tab N)]
     end
 
     subgraph "MCP Protocol Layer"
@@ -47,12 +47,13 @@ graph TB
     subgraph "Native Server Layer"
         G[Fastify HTTP Server]
         H[Native Messaging Host]
-        I[Session Management]
+        I[Session Management (Multi-Tenant)]
     end
 
     subgraph "Chrome Extension Layer"
         J[Background Script]
-        K[Content Scripts]
+        Q_EXEC[TabExecutionQueue (Multiplexer)]
+        K[Content Scripts (Isolated Tabs)]
         L[Popup Interface]
         M[Offscreen Documents]
     end
@@ -79,7 +80,8 @@ graph TB
     G --> H
     H --> P
     P --> J
-    J --> K
+    J --> Q_EXEC
+    Q_EXEC --> K
     J --> L
     J --> M
     J --> N

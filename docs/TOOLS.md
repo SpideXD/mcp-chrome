@@ -12,6 +12,15 @@ Complete reference for all available tools and their parameters.
 - [Data Management](#data-management)
 - [Response Format](#response-format)
 
+## ⚡ Multi-Tenant Concurrency & TabExecutionQueue
+
+The SpidexLab fork introduces the `TabExecutionQueue`. When multiple agents send tool execution requests concurrently:
+- **Parallel Execution**: Tools targeting *different* `tabId`s are executed completely asynchronously and in parallel.
+- **Serialized Execution**: Tools targeting the *same* `tabId` are automatically queued and serialized to prevent DOM state collisions and CDP race conditions.
+- **Global Serialization**: Any tool called *without* a specific `tabId` is placed in a global queue (using a sentinel key) and serialized against other global tool calls.
+
+Always specify `tabId` whenever possible to take advantage of parallel execution!
+
 ## 📊 Browser Management
 
 ### `get_windows_and_tabs`
