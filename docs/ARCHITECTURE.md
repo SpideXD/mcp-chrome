@@ -21,6 +21,13 @@ Chrome MCP Server is a sophisticated browser automation platform that bridges AI
 - **Reliability**: Robust error handling and graceful degradation
 - **Security**: Sandboxed execution and permission-based access control
 
+### Multi-Tenant Architecture (SpidexLab Fork)
+
+This specific fork of the Chrome MCP Server introduces a **Multi-Tenant Tab Multiplexing** architecture. The native server and extension messaging layers have been modified to support:
+- **Concurrent Agent Execution**: Multiple AI agents can connect to the same server and operate simultaneously without state collisions.
+- **Tab Context Isolation**: Each agent's execution context is strictly isolated to its designated browser tab.
+- **Execution Queues**: Parallelized task queues prevent connection resets when multiple agents dispatch tools simultaneously.
+
 ## 🏗️ System Architecture
 
 ```mermaid
